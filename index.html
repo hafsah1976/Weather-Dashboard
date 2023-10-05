@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weather Dashboard</title>
+
+    <!-- Materialize CSS framework -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+</head>
+
+<body>
+<!-- header -->
+<section class="hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">Weather Dashboard</h1>
+        </div>
+    </div>
+</section>
+
+<!-- search bar and search history on the left -->
+<section id="info-section">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m4">
+                <!-- start of search bar -->
+                <form>
+                    <div class="input-field">
+                        <input id="city-input" type="text" class="validate">
+                        <label for="city-input">Enter a city</label>
+                    </div>
+                    <button id="submit" class="btn waves-effect waves-light" type="submit">SEARCH</button>
+                </form>
+                <!-- end of search bar -->
+
+                <!-- start of search history -->
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Search History</span>
+                        <ul id="cityList" class="collection">
+                            <!-- Search history items here (generated dynamically with JavaScript) -->
+                        </ul>
+                        <button id="clear-btn" class="btn waves-effect waves-light red">CLEAR HISTORY</button>
+                    </div>
+                </div>
+                <!-- end of search history -->
+            </div>
+
+          <!-- start of current weather data -->
+<div class="col s12 m8">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">Current Weather</span>
+            <h2 id="city-name"></h2>
+            <h4 id="city-cond"></h4>
+            <h4 id="temp"></h4>
+            <h4 id="high"></h4>
+            <h4 id="humidity"></h4>
+            <h4 id="wind-speed"></h4>
+
+            <!-- Air Quality Index -->
+            <h4 id="air-quality">Air Quality Index: <span id="aqi-value">Loading...</span></h4>
+
+            <!-- Road Risk -->
+            <h4 id="road-risk">Road Risk: <span id="road-risk-value">Loading...</span></h4>
+        </div>
+    </div>
+</div>
+<!-- end of current weather data -->
+            <!-- start of five-day Forecast cards -->
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Five-Day Forecast</span>
+                        <div class="row" id="forecast">
+                            <!-- Five-day forecast cards here (generated dynamically with JavaScript) -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of five-day Forecast cards -->
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
+
