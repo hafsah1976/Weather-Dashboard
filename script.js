@@ -117,7 +117,7 @@ var viewCurrentWeather = function(cityInput) {
             $("#city-input").val("");
 
             // Alert the user about the error
-            alert("We could not find the city you searched for. Try searching for a valid city.");
+            alert("Please type a valid city.");
         });
 };
 
@@ -161,8 +161,4 @@ var fetchAirQuality = function(lat_Coord, lon_Coord, apiKey) {
         .catch(function (error) {
             console.error("Error fetching air quality data: ", error);
         });
-};
-
-// Function to fetch and display road risk data
-var fetchRoadRisk = function(cityInput) {
 };
