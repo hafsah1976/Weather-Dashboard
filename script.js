@@ -91,33 +91,47 @@ var viewCurrentWeather = function(cityInput) {
 
                     var iconNow = $("#current-weather-icon");
                     iconNow.addClass("current-weather-icon");
-                    var code_IconNow = response.current.weather[0].icon;
+                    var code_IconNow = response.weather[0].icon;
                     iconNow.attr("src", `https://openweathermap.org/img/wn/${code_IconNow}@2x.png`);
 
                     // Display current temperature
                     var temperature_Now = $("#current-temperature");
-                    temperature_Now.text("Temperature: " + response.current.temp + " \u00B0F");
+                    temperature_Now.text("Temperature: " + response.main.temp + " \u00B0F");
 
                     // Display current humidity
                     var Humidity_Now = $("#current-humidity");
-                    Humidity_Now.text("Humidity: " + response.current.humidity + "%");
+                    Humidity_Now.text("Humidity: " + response.main.humidity + "%");
 
                     // Display current wind speed
                     var WindSpeed_Now = $("#current-wind-speed");
-                    WindSpeed_Now.text("Wind Speed: " + response.current.wind_speed + " MPH");
+                    WindSpeed_Now.text("Wind Speed: " + response.wind.speed + " MPH");
 
+                    // Fetch air quality data
+                    fetchAirQuality(cityInput);
 
-                    // fetchAirQuality(cityInput);
-
-                    // fetchRoadRisk(cityInput);
+                    // Fetch additional weather data using the one call API
+                    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat_Coord}&lon=${lon_Coord}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)
+                        .then(function(response) {
+                            return response.json();
+                        })
+                        .then(function(response) {
+                            // Display the 5-day forecast
+                            displayFiveDayForecast(response);
+                        })
+                        .catch(function(error) {
+                            alert("Error fetching 5-day forecast data: " + error.message);
+                        });
                 })
+                .catch(function(error) {
+                    console.error("Error fetching additional weather data: " + error.message);
+                });
         })
         .catch(function(error) {
             // Reset the search input
             $("#city-input").val("");
 
             // Alert the user about the error
-            alert("Please type a valid city.");
+            alert("Please enter a valid city.");
         });
 };
 
