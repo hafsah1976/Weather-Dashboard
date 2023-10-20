@@ -1,5 +1,5 @@
 //assign apikey to a variable
-var apiKey = ''; 
+var apiKey = 'cc31170c87a14f51e3e882fc3599e433'; 
 
 // Initialize an empty array to store saved searches
 var savedSearches = [];
@@ -56,4 +56,76 @@ var viewSearchHistory = function() {
         // Call the searchHistory function to display each saved city in the search history container
         searchHistory(savedCities[i]);
     }
+};
+
+
+// Function to display current weather data for a city
+var viewCurrentWeather = function(cityInput) {
+    // Use the OpenWeatherMap API to fetch current weather data
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}`)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(response) {
+            // Extract the city's longitude and latitude
+            var lon_Coord = response.coord.lon;
+            var lat_Coord = response.coord.lat;
+
+            // Use the OpenWeatherMap One Call API to fetch additional data
+            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat_Coord}&lon=${lon_Coord}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(response) {
+                    // Populate the current weather section with data
+                    searchHistory(cityInput);
+
+                    // Add a container for current weather with a border
+                    var WeatherNowContainer = $("#current-weather-container");
+                    WeatherNowContainer.addClass("current-weather-container");
+
+                    // Display city name, date, and weather icon
+                    var title_Now = $("#current-title");
+                    var Day_Now = moment().format("MM/DD/YYYY");
+                    title_Now.text(`${cityInput} (${Day_Now})`);
+
+                    var iconNow = $("#current-weather-icon");
+                    iconNow.addClass("current-weather-icon");
+                    var code_IconNow = response.current.weather[0].icon;
+                    iconNow.attr("src", `https://openweathermap.org/img/wn/${code_IconNow}@2x.png`);
+
+                    // Display current temperature
+                    var temperature_Now = $("#current-temperature");
+                    temperature_Now.text("Temperature: " + response.current.temp + " \u00B0F");
+
+                    // Display current humidity
+                    var Humidity_Now = $("#current-humidity");
+                    Humidity_Now.text("Humidity: " + response.current.humidity + "%");
+
+                    // Display current wind speed
+                    var WindSpeed_Now = $("#current-wind-speed");
+                    WindSpeed_Now.text("Wind Speed: " + response.current.wind_speed + " MPH");
+
+
+                    // fetchAirQuality(cityInput);
+
+                    // fetchRoadRisk(cityInput);
+                })
+        })
+        .catch(function(error) {
+            // Reset the search input
+            $("#city-input").val("");
+
+            // Alert the user about the error
+            alert("We could not find the city you searched for. Try searching for a valid city.");
+        });
+};
+
+// Function to fetch and display air quality data
+var fetchAirQuality = function(cityInput) {
+
+};
+
+// Function to fetch and display road risk data
+var fetchRoadRisk = function(cityInput) {
 };
