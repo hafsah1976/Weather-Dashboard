@@ -13,15 +13,15 @@ var searchHistory = function(cityInput) {
     $('.collection-item:contains("' + cityInput + '")').remove(); // Match the CSS class with your HTML
 
     // Create a new search history entry with the city name
-    var viewSearchHistory = $("<li>");
-    viewSearchHistory.addClass("collection-item"); // Match the CSS class with your HTML
-    viewSearchHistory.text(cityInput);
+    var addSearchHistory = $("<li>");
+    addSearchHistory.addClass("collection-item"); // Match the CSS class with your HTML
+    addSearchHistory.text(cityInput);
 
     // Create a container for the search history entry
     var searchHistoryContainer = $("#cityList"); // Match the ID with your HTML
 
     // Append the entry to the container
-    searchHistoryContainer.append(viewSearchHistory);
+    searchHistoryContainer.append(addSearchHistory);
 
     // Check if there are previously saved searches
     if (savedSearches.length > 0) {
@@ -36,4 +36,24 @@ var searchHistory = function(cityInput) {
 
     // Reset the search input
     $("#city-input").val("");
+};
+
+// Function to load saved search history entries into the search history container
+var viewSearchHistory = function() {
+    // Get the saved search history from local storage
+    var savedCities = localStorage.getItem("savedSearches");
+
+    // Return if there are no previous saved searches
+    if (!savedCities) {
+        return;
+    }
+
+    // Parse the saved search history string into an array
+    savedCities = JSON.parse(savedCities);
+
+    // Loop through the saved search history array and create an entry for each item
+    for (var i = 0; i < savedCities.length; i++) {
+        // Call the searchHistory function to display each saved city in the search history container
+        searchHistory(savedCities[i]);
+    }
 };
