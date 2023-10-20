@@ -162,3 +162,35 @@ var fetchAirQuality = function(lat_Coord, lon_Coord, apiKey) {
             console.error("Error fetching air quality data: ", error);
         });
 };
+
+// Function to display the 5-day forecast
+var displayFiveDayForecast = function(data) {
+    // Add a title for the 5-day forecast
+    var fiveDayForecast = $("#five-days-forecast");
+    fiveDayForecast.text("5-Day Forecast:");
+
+    // Loop to create 5 forecast cards
+    for (var i = 1; i <= 5; i++) {
+        var card_Future = $(".five-days").eq(i - 1); // Get the current card by index
+        card_Future.addClass("forecast-details");
+
+        // Display the date for each forecast card
+        var date_Future = $("#future-date-" + i);
+        date = moment().add(i, "d").format("MM/DD/YYYY");
+        date_Future.text(date);
+
+        // Display the weather icon for each forecast card
+        var Icons = $("#future-icon-" + i);
+        Icons.addClass("future-icon");
+        var IconCode_Future = data.daily[i].weather[0].icon;
+        Icons.attr("src", `https://openweathermap.org/img/wn/${IconCode_Future}@2x.png`);
+
+        // Display the temperature for each forecast card
+        var Temperature_ = $("#temp-future" + i);
+        Temperature_.text("Temperature: " + data.daily[i].temp.day + " \u00B0F");
+
+        // Display the humidity for each forecast card
+        var future_Humidity = $("#humidity-future" + i);
+        future_Humidity.text("Humidity: " + data.daily[i].humidity + "%");
+    }
+};
