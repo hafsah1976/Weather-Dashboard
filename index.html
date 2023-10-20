@@ -40,3 +40,37 @@
                 </form>
                 <!-- end of search bar -->
 
+                <!-- start of search history -->
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Search History</span>
+                        <ul id="cityList" class="collection">
+                            <!-- Search history items here (generated dynamically with JavaScript) -->
+                        </ul>
+                        <button id="clear-btn" class="btn waves-effect waves-light red">CLEAR HISTORY</button>
+                    </div>
+                </div>
+                <!-- end of search history -->
+            </div>
+
+          <!-- start of current weather data -->
+<div class="col s12 m8">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">Current Weather</span>
+            <h2 id="city-name"></h2>
+            <h4 id="city-cond"></h4>
+            <h4 id="temp"></h4>
+            <h4 id="high"></h4>
+            <h4 id="humidity"></h4>
+            <h4 id="wind-speed"></h4>
+
+            <!-- Air Quality Index -->
+            <h4 id="air-quality">Air Quality Index: <span id="aqi-value">Loading...</span></h4>
+
+            <!-- Road Risk -->
+            <h4 id="road-risk">Road Risk: <span id="road-risk-value">Loading...</span></h4>
+        </div>
+    </div>
+</div>
+<!-- end of current weather data -->
