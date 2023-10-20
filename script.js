@@ -208,3 +208,20 @@ var displayFiveDayForecast = function(data) {
         future_Humidity.text("Humidity: " + data.daily[i].humidity + "%");
     }
 };
+
+// Called when the search form is submitted
+$("#search-form").on("submit", function(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+    
+    // Get the name of the city searched
+    var search_Input = $("#city-input").val();
+
+    if (search_Input === "" || search_Input == null) {
+        // Send an alert if the search input is empty when submitted
+        alert("Please enter the name of a city.");
+    } else {
+        // If cityName is valid, add it to the search history list and display its weather conditions
+        viewCurrentWeather(search_Input); // viewCurrentWeather is the function to display current weather
+        // fiveDayForecastSection(cityName); // display the 5-day forecast
+    }
+});
