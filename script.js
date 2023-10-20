@@ -70,10 +70,10 @@ var viewCurrentWeather = function(cityInput) {
             // Extract the city's longitude and latitude
             var lon_Coord = response.coord.lon;
             var lat_Coord = response.coord.lat;
-
+            
             // Use the OpenWeatherMap One Call API to fetch additional data
-            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat_Coord}&lon=${lon_Coord}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)
-                .then(function(response) {
+            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat_Coord}&lon=${lon_Coord}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)           
+            .then(function(response) {
                     return response.json();
                 })
                 .then(function(response) {
@@ -89,10 +89,12 @@ var viewCurrentWeather = function(cityInput) {
                     var Day_Now = moment().format("MM/DD/YYYY");
                     title_Now.text(`${cityInput} (${Day_Now})`);
 
+                    // Display the current weather icon
                     var iconNow = $("#current-weather-icon");
                     iconNow.addClass("current-weather-icon");
-                    var code_IconNow = response.weather[0].icon;
-                    iconNow.attr("src", `https://openweathermap.org/img/wn/${code_IconNow}@2x.png`);
+                    var currentWeatherIconCode = response.weather[0].icon;
+                    iconNow.attr("src", `http://openweathermap.org/img/wn/${currentWeatherIconCode}@2x.png`);
+                    iconNow.attr("alt", "Current Weather Icon");
 
                     // Display current temperature
                     var temperature_Now = $("#current-temperature");
@@ -110,7 +112,7 @@ var viewCurrentWeather = function(cityInput) {
                     fetchAirQuality(cityInput);
 
                     // Fetch additional weather data using the one call API
-                    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat_Coord}&lon=${lon_Coord}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)
+                    fetch(`"https://api.openweathermap.org/data/2.5/onecall?lat=" + ${lat_Coord} + "&lon=" + ${lon_Coord} + "&exclude=minutely,hourly" + "&units=imperial&appid=${apiKey}`)
                         .then(function(response) {
                             return response.json();
                         })
@@ -180,7 +182,7 @@ var fetchAirQuality = function(lat_Coord, lon_Coord, apiKey) {
 // Function to display the 5-day forecast
 var displayFiveDayForecast = function(data) {
     // Add a title for the 5-day forecast
-    var fiveDayForecast = $("#five-days-forecast");
+    var fiveDayForecast = $("#forecast");
     fiveDayForecast.text("5-Day Forecast:");
 
     // Loop to create 5 forecast cards
@@ -222,6 +224,36 @@ $("#search-form").on("submit", function(event) {
     } else {
         // If cityName is valid, add it to the search history list and display its weather conditions
         viewCurrentWeather(search_Input); // viewCurrentWeather is the function to display current weather
-        // fiveDayForecastSection(cityName); // display the 5-day forecast
+        // displayFiveDayForecast(search_Input); // display the 5-day forecast
     }
 });
+
+// Called when a search history entry is clicked
+$("#search-history-container").on("click", "p", function() {
+    // Get the text (city name) of the clicked entry
+    var previous_search_Input = $(this).text();
+
+    // Display the weather conditions for the clicked city
+    viewCurrentWeather(previous_search_Input); //  function to display current weather
+    // displayFiveDayForecast(search_Input); //  to display the 5-day forecast
+
+    // Remove the clicked entry from the search history
+    $(this).remove();
+});
+
+function clearSearchHistory() {
+    // Clear the search history in your code
+    savedSearches = [];
+    localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
+
+    // If you want to remove the displayed search history from the webpage, you can do that too.
+    var cityList = document.getElementById("cityList");
+    cityList.innerHTML = ""; // This will clear the displayed search history on the webpage.
+}
+
+// Now call this function when the "CLEAR HISTORY" button is clicked.
+var clearHistoryButton = document.getElementById("clear-btn");
+clearHistoryButton.addEventListener("click", clearSearchHistory);
+
+// Load the search history
+searchHistory();
