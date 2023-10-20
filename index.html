@@ -8,11 +8,15 @@
     <!-- Materialize CSS framework -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
+    <!-- openweather icons -->
+    <link rel="stylesheet" href="https://openweathermap.org/themes/openweathermap/assets/css/owm_4.0.css">
+
     <!-- Local CSS -->
     <link rel="stylesheet" href="style.css">
 
     <!-- moment.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
 </head>
 
 <body>
@@ -53,27 +57,29 @@
                 <!-- end of search history -->
             </div>
 
-          <!-- start of current weather data -->
-            <div class="col s12 m8">
-                <div class="card">
-                    <div class="card-content">
-                        <span class="card-title">Current Weather</span>
-                        <h2 id="city-name"></h2>
-                        <h4 id="city-cond"></h4>
-                        <h4 id="temp"></h4>
-                        <h4 id="high"></h4>
-                        <h4 id="humidity"></h4>
-                        <h4 id="wind-speed"></h4>
+<!-- start of current weather data -->
+<div class="col s12 m8">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">Current Weather</span>
+            <h2 id="current-title"></h2>
+            <h4 id="city-cond">
+                <!-- Display the OpenWeather icon for weather condition -->
+                <i class="owm owm-01d"></i>
+            </h4>
+            <h4 id="current-temperature"></h4>
+            <h4 id="current-humidity"></h4>
+            <h4 id="current-wind-speed"></h4>
 
-                        <!-- Air Quality Index -->
-                        <h4 id="air-quality">Air Quality Index: <span id="aqi-value">Loading...</span></h4>
+            <!-- Air Quality Index -->
+            <h4 id="air-quality">Air Quality Index: <i class="owm owm-50d"></i><span id="aqi-value">Loading...</span></h4>
 
-                        <!-- Road Risk -->
-                        <h4 id="road-risk">Road Risk: <span id="road-risk-value">Loading...</span></h4>
-                    </div>
-                </div>
-            </div>
-        <!-- end of current weather data -->
+            <!-- Road Risk -->
+            <h4 id="road-risk">Road Risk: <i class="owm owm-01n"></i><span id="road-risk-value">Loading...</span></h4>
+        </div>
+    </div>
+</div>
+<!-- end of current weather data -->
 
           <!-- start of five-day Forecast cards -->
             <div class="col s12">

@@ -122,8 +122,45 @@ var viewCurrentWeather = function(cityInput) {
 };
 
 // Function to fetch and display air quality data
-var fetchAirQuality = function(cityInput) {
+var fetchAirQuality = function(lat_Coord, lon_Coord, apiKey) {
+    // Use the appropriate API to fetch air quality data
+    fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat_Coord}&lon=${lon_Coord}&appid=${apiKey}`)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (response) {
+            // Extract air quality data
+            var airQuality = response.list[0].main.aqi;
 
+            // Map air quality index to a human-readable value
+            var airQualityStatus;
+            switch (airQuality) {
+                case 1:
+                    airQualityStatus = "Good";
+                    break;
+                case 2:
+                    airQualityStatus = "Fair";
+                    break;
+                case 3:
+                    airQualityStatus = "Moderate";
+                    break;
+                case 4:
+                    airQualityStatus = "Poor";
+                    break;
+                case 5:
+                    airQualityStatus = "Very Poor";
+                    break;
+                default:
+                    airQualityStatus = "Unknown";
+            }
+
+            // Display the air quality data in the appropriate HTML element
+            var airQualityElement = $("#air-quality");
+            airQualityElement.text("Air Quality: " + airQualityStatus);
+        })
+        .catch(function (error) {
+            console.error("Error fetching air quality data: ", error);
+        });
 };
 
 // Function to fetch and display road risk data
