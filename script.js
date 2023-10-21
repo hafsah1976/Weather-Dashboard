@@ -1,10 +1,13 @@
+$(document).ready(function() {
+
 //assign apikey to a variable
 var apiKey = 'cc31170c87a14f51e3e882fc3599e433'; 
 
 // Initialize an empty array to store saved searches
 var savedSearches = [];
 
-var cityInput = '';
+var cityInput = '';// user to type input here
+
 // Function to display search history
 var searchHistory = function(cityInput) {
     // Logging the city input
@@ -30,14 +33,6 @@ var searchHistory = function(cityInput) {
         var previousSavedSearches = localStorage.getItem("savedSearches");
         savedSearches = JSON.parse(previousSavedSearches);
     }
-
-    // Add the city name to the array of saved searches
-    savedSearches.push(cityInput);
-    localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
-
-    // Reset the search input
-    $("#city-input").val("");
-};
 
 var viewSearchHistory = function() {
     // Get the saved search history from local storage
@@ -254,5 +249,7 @@ function clearSearchHistory() {
 var clearHistoryButton = document.getElementById("clear-btn");
 clearHistoryButton.addEventListener("click", clearSearchHistory);
 
-// Load the search history
-onLoad.apply(this.searchHistory(cityInput));
+// on-Load the search history
+   
+    searchHistory(cityInput);
+});
