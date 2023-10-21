@@ -2,7 +2,6 @@
 /* Set the background image to cover the entire page */
 html{
    height: 100%;
-   width: 100%;
    background-image: url('./images/weather-app-bg.jpeg');
    background-repeat: no-repeat;
    background-size: cover; /* This will make the background image cover the entire page */
@@ -13,6 +12,8 @@ html{
 
 body {
    margin: 0;
+   backdrop-filter: blur(16px); /* Adjust the pixel value for the desired blur effect */
+
 }
 
 /* Define the font for card elements */
@@ -36,16 +37,20 @@ header {
    margin-top: 20px;
 }
 .card{
-   margin-top:1rem;
-   margin-bottom: 1rem;
+   background-color: rgb(246, 236, 128);
+border-radius: 10px;
+   margin: 3px;
+  min-height: 300px;
 }
 /* Style for forecast details and cards */
-.forecast-details, .card {
-   margin-top: 20px;
+.forecast-details{
    margin-bottom: 20px;
-   background-color: rgb(246, 236, 128);
-   border-radius: 5px;
    padding: 5px;
+   /* margin-left: 10px; */
+   margin-right: 10px;
+   display:flex;
+   flex-direction: column;
+   justify-content: space-evenly;
 }
 
 /* Style for the search label text */
