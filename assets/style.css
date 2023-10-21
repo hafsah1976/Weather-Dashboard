@@ -1,4 +1,44 @@
 .card {
        font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
+    
+header {
+      background-color: rgb(226, 200, 112); 
+      padding: 20px; 
+      text-align: center; 
+      font-size: 24px; 
+      font-weight: bolder; 
+      margin: 0;
+      color:dodgerblue; 
+    }
+    
+
+    .col.s12.m4 {
+      margin-top: 20px;
+  }
+
+  .card {
+      margin-top: 20px;
+      margin-bottom: 20px;
+  }
+
+  .card-content{
+   background-color: rgb(246, 236, 128);
+  }
+
+  .forecast-details{
+background-color: rgb(102, 184, 255);
+   padding: 5px;
+   margin: 5px;
+}
+  @media only screen and (max-width: 599px) {
+
+   .column {
+     margin: 2px;
+     padding: 0 20px 0 20px;
+   }
  
+   .card-content {
+     padding: 20px;
+   }
+ }

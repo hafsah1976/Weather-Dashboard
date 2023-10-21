@@ -15,7 +15,7 @@
     <header class="hero">
         <div class="hero-body">
             <div class="container">
-                <h1 class="title">Weather Dashboard</h1>
+                <h1 class="title">WEATHER DASHBOARD</h1>
             </div>
         </div>
     </header>
@@ -31,19 +31,19 @@
                             <input id="city-input" type="text" class="validate">
                             <label for="city-input" class="search-label">Search for a City:</label>
                         </div>
-                        <button type="submit" class="btn bg-primary waves-effect waves-light search-button">
+                        <button type="submit" class="btn red waves-effect waves-light search-button">
                             <i class="material-icons">search</i>
                         </button>
                     </form>
 
                     <!-- Search History -->
                     <div class="card search-history">
-                        <div class="card-content">
+                        <div class="card-content search-history-container">
                             <span class="card-title">Search History</span>
-                            <ul id="cityList" class="collection-item search-history-container">
+                            <ul id="cityList" class="collection search-history-container">
                                 <!-- Search history items here (generated dynamically with JavaScript) -->
                             </ul>
-                            <a id="clear-btn" class="btn waves-effect waves-light red clear-button">CLEAR HISTORY</a>
+                            <button id="clear-btn" class="btn waves-effect waves-light blue clear-button">CLEAR HISTORY</button>
                         </div>
                     </div>
                 </div>
@@ -55,16 +55,14 @@
                             <span class="card-title">Current Weather</span>
                             <!-- Current Weather Data -->
                             <div class="current-weather-container">
-                                <div class="current-weather-icon">
-                                    <div class="card-content">
-                                        <h2 id="current-title" class="current-title"></h2>
-                                        <p class="current-temperature" id="current-temperature"></p>
-                                        <p class="current-humidity" id="current-humidity"></p>
-                                        <p class="current-wind-speed" id="current-wind-speed"></p>
-                                    </div>
+                                <img id="current-weather-icon" class="current-weather-icon" src="" alt="">
+                                <div class="card-content">
+                                    <h2 id="current-title" class="current-title"></h2>
+                                    <p class="current-temperature" id="current-temperature"></p>
+                                    <p class="current-humidity" id="current-humidity"></p>
+                                    <p class="current-wind-speed" id="current-wind-speed"></p>
                                 </div>
                             </div>
-
                             <!-- Air Quality Status -->
                             <div>
                                 <h4><span id="air-quality"></span></h4>
