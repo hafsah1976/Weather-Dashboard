@@ -35,13 +35,17 @@ To use the Weather Dashboard, follow these steps:
 
 5. To clear your search history, click the "CLEAR HISTORY" button.
 
-6. View of the dashboard in use
+6. [View of the dashboard in use](https://watch.screencastify.com/v/AUTtwyAl7AR52HFnZWe3)
 
-![alt]()
+## Test Screenshots
+
+![Screenshot of the Weather Dashboard](./assets/images/Weather-Dashboard.png)
+
+![Screenshot of cities searched](./assets/images/Showing-Search-history.png)
 
 ## Credits
 
-This Weather Dashboard app utilizes data from the [OpenWeatherMap](https://openweathermap.org/api) API. Weather icons are provided by OpenWeatherMap and displayed using their respective URLs.
+Besides HTML, CSS and JavaScript, this Weather Dashboard app utilizes data from the [OpenWeatherMap](https://openweathermap.org/api) API. Weather icons are provided by OpenWeatherMap and displayed using their respective URLs.
 
 This project uses various design elements from [Materialize CSS](https://materializecss.com/buttons.html) to enhance the user interface. Materialize CSS provides a wide range of pre-designed components like buttons, cards, and navigation bars that contribute to the visualsand user experience of this Weather Dashboard.
 
@@ -49,7 +53,7 @@ This project makes use of the [backdrop-filter](https://developer.mozilla.org/en
 
 ## License
 
-MIT License
+![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)
 
 Copyright (c) 2023 hafsah1976
 
