@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    // Assign api key to a variable
+    // Assign API key to a variable
     var apiKey = 'cc31170c87a14f51e3e882fc3599e433';
 
     // Initialize an empty array to store saved searches
@@ -36,6 +36,7 @@ $(document).ready(function () {
         $("#city-input").val("");
     };
 
+    // Function to view search history
     var viewSearchHistory = function () {
         // Get the saved search history from local storage
         var savedCities = localStorage.getItem("savedSearches");
@@ -46,7 +47,7 @@ $(document).ready(function () {
             savedSearches = JSON.parse(savedCities);
 
             // Select the container where you want to render the search history
-            var searchHistoryContainer = $("#search-history-container");
+            var searchHistoryContainer = $("#cityList");
 
             // Clear the container first
             searchHistoryContainer.empty();
@@ -76,7 +77,7 @@ $(document).ready(function () {
                 var lat_Coord = response.coord.lat;
 
                 // Populate the current weather section with data
-                searchHistory(cityInput);
+                createSearchHistory(cityInput);
 
                 // Add a container for current weather with a border
                 var WeatherNowContainer = $("#current-weather-container");
@@ -249,9 +250,6 @@ $(document).ready(function () {
     // Call the clearSearchHistory function when the "CLEAR HISTORY" button is clicked.
     $("#clear-btn").on("click", clearSearchHistory);
 
-    $(document).ready(function() {
-        // Call the viewSearchHistory function when the page loads
-        viewSearchHistory();
-    });
-    
+    // Call the viewSearchHistory function when the page loads
+    viewSearchHistory();
 });

@@ -1,44 +1,87 @@
-.card {
-       font-family: Verdana, Geneva, Tahoma, sans-serif;
-    }
-    
-header {
-      background-color: rgb(226, 200, 112); 
-      padding: 20px; 
-      text-align: center; 
-      font-size: 24px; 
-      font-weight: bolder; 
-      margin: 0;
-      color:dodgerblue; 
-    }
-    
 
-    .col.s12.m4 {
-      margin-top: 20px;
-  }
+/* Set the background image to cover the entire page */
+html{
+   height: 100%;
+   width: 100%;
+   background-image: url('./images/weather-app-bg.jpeg');
+   background-repeat: no-repeat;
+   background-size: cover; /* This will make the background image cover the entire page */
+   backdrop-filter: blur(16px); /* Adjust the pixel value for the desired blur effect */
 
-  .card {
-      margin-top: 20px;
-      margin-bottom: 20px;
-  }
 
-  .card-content{
-   background-color: rgb(246, 236, 128);
-  }
-
-  .forecast-details{
-background-color: rgb(102, 184, 255);
-   padding: 5px;
-   margin: 5px;
 }
-  @media only screen and (max-width: 599px) {
 
-   .column {
-     margin: 2px;
-     padding: 0 20px 0 20px;
+body {
+   margin: 0;
+}
+
+/* Define the font for card elements */
+.card {
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Style for the header section */
+header {
+   background-color: rgb(249, 231, 128);
+   padding: 20px;
+   text-align: center;
+   font-size: 24px;
+   font-weight: bolder;
+   margin: 0;
+   color: rgb(6, 15, 25);
+}
+
+/* Add margin to columns in small and medium screens */
+.col.s12.m4 {
+   margin-top: 20px;
+}
+.card{
+   margin-top:1rem;
+   margin-bottom: 1rem;
+}
+/* Style for forecast details and cards */
+.forecast-details, .card {
+   margin-top: 20px;
+   margin-bottom: 20px;
+   background-color: rgb(246, 236, 128);
+   border-radius: 5px;
+   padding: 5px;
+}
+
+/* Style for the search label text */
+.search-label {
+   color: white;
+}
+
+/* Style for the city input */
+#city-input {
+   color: white;
+   font-family: Arial, Helvetica, sans-serif;
+   font-size: x-large;
+}
+
+/* Media query for screens with a width of 599px or less */
+@media only screen and (max-width: 599px) {
+   .row {
+       margin: 2px;
+       padding: 0 20px 0 20px;
    }
- 
+
    .card-content {
-     padding: 20px;
+       padding: 20px;
    }
- }
+
+   .col.s12.m4 {
+       margin-top: 10px;
+   }
+
+   .card {
+       margin-top: 10px;
+       margin-bottom: 10px;
+   }
+
+   /* Adjust header font size for smaller screens */
+   header {
+       font-size: 20px;
+   }
+}
