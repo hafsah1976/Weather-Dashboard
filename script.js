@@ -4,10 +4,11 @@ var apiKey = 'cc31170c87a14f51e3e882fc3599e433';
 // Initialize an empty array to store saved searches
 var savedSearches = [];
 
+var cityInput = '';
 // Function to display search history
 var searchHistory = function(cityInput) {
     // Logging the city input
-    console.log("Your input: " + cityInput);
+    // console.log("Your input: " + cityInput);
 
     // Remove any previous search history entry with the same city name
     $('.collection-item:contains("' + cityInput + '")').remove(); // Match the CSS class with your HTML
@@ -38,26 +39,29 @@ var searchHistory = function(cityInput) {
     $("#city-input").val("");
 };
 
-// Function to load saved search history entries into the search history container
 var viewSearchHistory = function() {
     // Get the saved search history from local storage
     var savedCities = localStorage.getItem("savedSearches");
 
-    // Return if there are no previous saved searches
-    if (!savedCities) {
-        return;
-    }
+    // Check if there is any saved search history
+    if (savedCities) {
+        // Parse the saved search history string into an array
+        savedCities = JSON.parse(savedCities);
 
-    // Parse the saved search history string into an array
-    savedCities = JSON.parse(savedCities);
+        // Select the container where you want to render the search history
+        var searchHistoryContainer = document.getElementById("search-history-container");
 
-    // Loop through the saved search history array and create an entry for each item
-    for (var i = 0; i < savedCities.length; i++) {
-        // Call the searchHistory function to display each saved city in the search history container
-        searchHistory(savedCities[i]);
+        // Loop through the saved search history array and create an entry for each item
+        for (var i = 0; i < savedCities.length; i++) {
+            // Create an element for each search history entry (e.g., a list item)
+            var entry = document.createElement("li");
+            entry.textContent = savedCities[i];
+
+            // Append the entry to the container
+            searchHistoryContainer.appendChild(entry);
+        }
     }
 };
-
 
 // Function to display current weather data for a city
 var viewCurrentWeather = function(cityInput) {
@@ -71,62 +75,39 @@ var viewCurrentWeather = function(cityInput) {
             var lon_Coord = response.coord.lon;
             var lat_Coord = response.coord.lat;
             
-            // Use the OpenWeatherMap One Call API to fetch additional data
-            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat_Coord}&lon=${lon_Coord}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)           
-            .then(function(response) {
-                    return response.json();
-                })
-                .then(function(response) {
-                    // Populate the current weather section with data
-                    searchHistory(cityInput);
+            // Populate the current weather section with data
+            searchHistory(cityInput);
 
-                    // Add a container for current weather with a border
-                    var WeatherNowContainer = $("#current-weather-container");
-                    WeatherNowContainer.addClass("current-weather-container");
+            // Add a container for current weather with a border
+            var WeatherNowContainer = $("#current-weather-container");
+            WeatherNowContainer.addClass("current-weather-container");
 
-                    // Display city name, date, and weather icon
-                    var title_Now = $("#current-title");
-                    var Day_Now = moment().format("MM/DD/YYYY");
-                    title_Now.text(`${cityInput} (${Day_Now})`);
+            // Display city name, date, and weather icon
+            var title_Now = $("#current-title");
+            var Day_Now = moment().format("MM/DD/YYYY");
+            title_Now.text(`${cityInput} (${Day_Now})`);
 
-                    // Display the current weather icon
-                    var iconNow = $("#current-weather-icon");
-                    iconNow.addClass("current-weather-icon");
-                    var currentWeatherIconCode = response.weather[0].icon;
-                    iconNow.attr("src", `http://openweathermap.org/img/wn/${currentWeatherIconCode}@2x.png`);
-                    iconNow.attr("alt", "Current Weather Icon");
+            // Display the current weather icon
+            var iconNow = $("#current-weather-icon");
+            iconNow.addClass("current-weather-icon");
+            var currentWeatherIconCode = response.weather[0].icon;
+            iconNow.attr("src", `http://openweathermap.org/img/wn/${currentWeatherIconCode}@2x.png`);
+            iconNow.attr("alt", "Current Weather Icon");
 
-                    // Display current temperature
-                    var temperature_Now = $("#current-temperature");
-                    temperature_Now.text("Temperature: " + response.main.temp + " \u00B0F");
+            // Display current temperature
+            var temperature_Now = $("#current-temperature");
+            temperature_Now.text("Temperature: " + response.main.temp + " \u00B0F");
 
-                    // Display current humidity
-                    var Humidity_Now = $("#current-humidity");
-                    Humidity_Now.text("Humidity: " + response.main.humidity + "%");
+            // Display current humidity
+            var Humidity_Now = $("#current-humidity");
+            Humidity_Now.text("Humidity: " + response.main.humidity + "%");
 
-                    // Display current wind speed
-                    var WindSpeed_Now = $("#current-wind-speed");
-                    WindSpeed_Now.text("Wind Speed: " + response.wind.speed + " MPH");
+            // Display current wind speed
+            var WindSpeed_Now = $("#current-wind-speed");
+            WindSpeed_Now.text("Wind Speed: " + response.wind.speed + " MPH");
 
-                    // Fetch air quality data
-                    fetchAirQuality(cityInput);
-
-                    // Fetch additional weather data using the one call API
-                    fetch(`"https://api.openweathermap.org/data/2.5/onecall?lat=" + ${lat_Coord} + "&lon=" + ${lon_Coord} + "&exclude=minutely,hourly" + "&units=imperial&appid=${apiKey}`)
-                        .then(function(response) {
-                            return response.json();
-                        })
-                        .then(function(response) {
-                            // Display the 5-day forecast
-                            displayFiveDayForecast(response);
-                        })
-                        .catch(function(error) {
-                            alert("Error fetching 5-day forecast data: " + error.message);
-                        });
-                })
-                .catch(function(error) {
-                    console.error("Error fetching additional weather data: " + error.message);
-                });
+            // Fetch additional weather data using the one call API
+            fetchWeatherDetails(lat_Coord, lon_Coord);
         })
         .catch(function(error) {
             // Reset the search input
@@ -137,14 +118,31 @@ var viewCurrentWeather = function(cityInput) {
         });
 };
 
-// Function to fetch and display air quality data
-var fetchAirQuality = function(lat_Coord, lon_Coord, apiKey) {
-    // Use the appropriate API to fetch air quality data
-    fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat_Coord}&lon=${lon_Coord}&appid=${apiKey}`)
-        .then(function (response) {
+// Function to fetch additional weather details
+var fetchWeatherDetails = function(lat_Coord, lon_Coord) {
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat_Coord}&lon=${lon_Coord}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)
+        .then(function(response) {
             return response.json();
         })
-        .then(function (response) {
+        .then(function(response) {
+            // Fetch air quality data
+            fetchAirQuality(lat_Coord, lon_Coord);
+            // Display the 5-day forecast
+            displayFiveDayForecast(lat_Coord,lon_Coord);
+        })
+        .catch(function(error) {
+            alert("Error fetching additional weather data: " + error.message);
+        });
+};
+
+// Function to fetch and display air quality data
+var fetchAirQuality = function(lat_Coord, lon_Coord) {
+    // Use the appropriate API to fetch air quality data
+    fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat_Coord}&lon=${lon_Coord}&appid=${apiKey}`)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(response) {
             // Extract air quality data
             var airQuality = response.list[0].main.aqi;
 
@@ -174,10 +172,11 @@ var fetchAirQuality = function(lat_Coord, lon_Coord, apiKey) {
             var airQualityElement = $("#air-quality");
             airQualityElement.text("Air Quality: " + airQualityStatus);
         })
-        .catch(function (error) {
+        .catch(function(error) {
             console.error("Error fetching air quality data: ", error);
         });
 };
+
 
 // Function to display the 5-day forecast
 var displayFiveDayForecast = function(data) {
@@ -206,7 +205,7 @@ var displayFiveDayForecast = function(data) {
         Temperature_.text("Temperature: " + data.daily[i].temp.day + " \u00B0F");
 
         // Display the humidity for each forecast card
-        var future_Humidity = $("#humidity-future" + i);
+        var future_Humidity = $("#F-humidity" + i);
         future_Humidity.text("Humidity: " + data.daily[i].humidity + "%");
     }
 };
@@ -224,7 +223,7 @@ $("#search-form").on("submit", function(event) {
     } else {
         // If cityName is valid, add it to the search history list and display its weather conditions
         viewCurrentWeather(search_Input); // viewCurrentWeather is the function to display current weather
-        // displayFiveDayForecast(search_Input); // display the 5-day forecast
+        //displayFiveDayForecast(search_Input); // display the 5-day forecast
     }
 });
 
@@ -235,7 +234,7 @@ $("#search-history-container").on("click", "p", function() {
 
     // Display the weather conditions for the clicked city
     viewCurrentWeather(previous_search_Input); //  function to display current weather
-    // displayFiveDayForecast(search_Input); //  to display the 5-day forecast
+    //displayFiveDayForecast(search_Input); //  to display the 5-day forecast
 
     // Remove the clicked entry from the search history
     $(this).remove();
@@ -247,8 +246,8 @@ function clearSearchHistory() {
     localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
 
     // If you want to remove the displayed search history from the webpage, you can do that too.
-    var cityList = document.getElementById("cityList");
-    cityList.innerHTML = ""; // This will clear the displayed search history on the webpage.
+    //var cityList = document.getElementById("cityList");
+   // cityList.innerHTML = ""; // This will clear the displayed search history on the webpage.
 }
 
 // Now call this function when the "CLEAR HISTORY" button is clicked.
@@ -256,4 +255,4 @@ var clearHistoryButton = document.getElementById("clear-btn");
 clearHistoryButton.addEventListener("click", clearSearchHistory);
 
 // Load the search history
-searchHistory();
+onLoad.apply(this.searchHistory(cityInput));

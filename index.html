@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +11,6 @@
     <!-- <link rel="stylesheet" href="./Assets/css/style.css"> -->
     <title>Weather Dashboard</title>
 </head>
-
 <body class="body">
     <header class="hero">
         <div class="hero-body">
@@ -45,95 +43,90 @@
                             <ul id="cityList" class="collection search-history-container">
                                 <!-- Search history items here (generated dynamically with JavaScript) -->
                             </ul>
-                            <button id="clear-btn" class="btn waves-effect waves-light red clear-button">CLEAR
-                                HISTORY</button>
+                            <button id="clear-btn" class="btn waves-effect waves-light red clear-button">CLEAR HISTORY</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- start of current weather data -->
+                <!-- Current weather data and five-day forecast cards -->
                 <div class="col s12 m8">
                     <div class="card">
                         <div class="card-content">
                             <span class="card-title">Current Weather</span>
-                            <!-- Current Weather Column -->
-                            <div class="col s12 m8">
-<!-- Current Weather Data -->
-<div class="card current-weather-container">
-    <div class="current-weather-icon">
-        <div class="card-content">
-            <h2 id="current-title" class="current-title"></h2>
-            <p class="current-temperature" id="current-temperature"></p>
-            <p class="current-humidity" id="current-humidity"></p>
-            <p class="current-wind-speed" id="current-wind-speed"></p>
-        </div>
-    </div>
+                            <!-- Current Weather Data -->
+                            <div class="current-weather-container">
+                                <div class="current-weather-icon">
+                                    <div class="card-content">
+                                        <h2 id="current-title" class="current-title"></h2>
+                                        <p class="current-temperature" id="current-temperature"></p>
+                                        <p class="current-humidity" id="current-humidity"></p>
+                                        <p class="current-wind-speed" id="current-wind-speed"></p>
+                                    </div>
+                                </div>
+                            </div>
 
-    <!-- Air Quality Index -->
-    <div>
-        <h4>Air Quality Index: <span id="air-quality"></span></h4>
-    </div>
-</div>
-                        </div>
-                    </div>
-                    <!-- end of current weather data -->
-
-                    <!-- start of five-day Forecast cards -->
-                    <div class="card forecast">
-                        <div class="future-card card-panel teal lighten-4 rounded">
-                            <p class="future-date teal-text text-darken-4" id="future-date-1"></p>
-                            <img class="future-icon" id="future-icon-1" src="" alt="">
-                            <p class="future-temp teal-text text-darken-4" id="future-temp-1"></p>
-                            <p class="future-humidity teal-text text-darken-4" id="future-humidity-1"></p>
-                        </div>
-                    </div>                    
-                    <div class="card forecast">
-                        <div class="future-card card-panel teal lighten-4 rounded">
-                            <p class="future-date teal-text text-darken-4" id="future-date-2"></p>
-                            <img class="future-icon" id="future-icon-2" src="" alt="">
-                            <p class="future-temp teal-text text-darken-4" id="future-temp-2"></p>
-                            <p class="future-humidity teal-text text-darken-4" id="future-humidity-2"></p>
-                        </div>
-                    </div>
-                    <div class="card forecast">
-                        <div class="future-card card-panel teal lighten-4 rounded">
-                            <p class="future-date teal-text text-darken-4" id="future-date-3"></p>
-                            <img class="future-icon" id="future-icon-3" src="" alt="">
-                            <p class="future-temp teal-text text-darken-4" id="future-temp-3"></p>
-                            <p class="future-humidity teal-text text-darken-4" id="future-humidity-3"></p>
-                        </div>
-                    </div>
-                    <div class="card forecast">
-                        <div class="future-card card-panel teal lighten-4 rounded">
-                            <p class="future-date teal-text text-darken-4" id="future-date-4"></p>
-                            <img class="future-icon" id="future-icon-4" src="" alt="">
-                            <p class="future-temp teal-text text-darken-4" id="future-temp-4"></p>
-                            <p class="future-humidity teal-text text-darken-4" id="future-humidity-4"></p>
-                        </div>
-                    </div>
-                    <div class="card forecast">
-                        <div class="future-card card-panel teal lighten-4 rounded">
-                            <p class="future-date teal-text text-darken-4" id="future-date-5"></p>
-                            <img class="future-icon" id="future-icon-5" src="" alt="">
-                            <p class="future-temp teal-text text-darken-4" id="future-temp-5"></p>
-                            <p class="future-humidity teal-text text-darken-4" id="future-humidity-5"></p>
-                        </div>
-                    </div>
-
+                            <!-- Air Quality Status -->
+                            <div>
+                                <h4><span id="air-quality"></span></h4>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- end of five-day Forecast cards -->
-            </div>
-        </div>
-        </section>
 
-        <!-- moment.js -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script src="script.js"></script>
+                    <div class="forecast">
+                        <!-- title for the 5-day forecast-->
+                        <h3 class="teal-text text-darken-4" style="font-size: 1.5em; text-decoration: underline;">5-Day Forecast:</h3>
+                    
+                        <!-- space for 5 forecast cards -->
+                        <div class="row">
+                            <div class="col s2 five-days"> <!-- For the first day -->
+                                <div class="forecast-details card">
+                                    <p class="future-date" id="future-date-1"></p>
+                                    <img class="future-icon" id="future-icon-1" src="" alt="">
+                                    <p class="future-temp" id="temp-future1"></p>
+                                    <p class="future-humidity" id="F-humidity1"></p>
+                                </div>
+                            </div>
+                            <div class="col s2 five-days"> <!-- For the second day -->
+                                <div class="forecast-details card">
+                                    <p class="future-date" id="future-date-2"></p>
+                                    <img class="future-icon" id="future-icon-2" src="" alt="">
+                                    <p class="future-temp" id="temp-future2"></p>
+                                    <p class="future-humidity" id="F-humidity2"></p>
+                                </div>
+                            </div>
+                            <div class="col s2 five-days"> <!-- For the third day -->
+                                <div class="forecast-details card">
+                                    <p class="future-date" id="future-date-3"></p>
+                                    <img class="future-icon" id="future-icon-3" src="" alt="">
+                                    <p class="future-temp" id="temp-future3"></p>
+                                    <p class="future-humidity" id="F-humidity3"></p>
+                                </div>
+                            </div>
+                            <div class="col s2 five-days"> <!-- For the fourth day -->
+                                <div class="forecast-details card">
+                                    <p class="future-date" id="future-date-4"></p>
+                                    <img class="future-icon" id="future-icon-4" src="" alt="">
+                                    <p class="future-temp" id="temp-future4"></p>
+                                    <p class="future-humidity" id="F-humidity4"></p>
+                                </div>
+                            </div>
+                            <div class="col s2 five-days"> <!-- For the fifth day -->
+                                <div class="forecast-details card">
+                                    <p class="future-date" id="future-date-5"></p>
+                                    <img class="future-icon" id="future-icon-5" src="" alt="">
+                                    <p class="future-temp" id="temp-future5"></p>
+                                    <p class="future-humidity" id="F-humidity5"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                <!-- End of five-day Forecast cards -->
+    </main>
+
+    <!-- moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="script.js"></script>
 </body>
-
 </html>
